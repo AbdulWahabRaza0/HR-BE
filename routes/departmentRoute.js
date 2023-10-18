@@ -9,7 +9,6 @@ const {
 } = require("../controller/department");
 router.get("/", protect, allDetails);
 router.post("/add", protect, protectAdmin, addDetails);
-
 router.put("/update", protect, protectAdmin, updateDetails);
 router.put("/delete", protect, protectAdmin, deleteDepartment);
 module.exports = router;

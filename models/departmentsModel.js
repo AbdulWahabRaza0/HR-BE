@@ -17,7 +17,6 @@ const Schema = new mongoose.Schema({
     type: String,
     required: true,
   },
-
   workers: [
     {
       type: ObjectId,
