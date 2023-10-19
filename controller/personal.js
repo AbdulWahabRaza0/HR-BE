@@ -75,20 +75,20 @@ const deleteDetails = asyncHandler(async (req, res) => {
       res.status(400);
       throw new Error("Worker not found");
     }
-    if (findPerson.experienceId) {
+    if (findPerson?.experienceId) {
       const findExperience = await Experience.findById(findPerson.experienceId);
       if (findExperience) {
-        if (findExperience.prevJobsId.length > 0) {
+        if (findExperience?.prevJobsId.length > 0) {
           for (const prev of findExperience.prevJobsId) {
             await PrevJobs.findOneAndDelete(prev);
           }
         }
-        if (findExperience.trainingId.length > 0) {
+        if (findExperience?.trainingId.length > 0) {
           for (const training of findExperience.trainingId) {
             await Training.findOneAndDelete(training);
           }
         }
-        if (findExperience.skillsId.length > 0) {
+        if (findExperience?.skillsId.length > 0) {
           for (const skill of findExperience.skillsId) {
             await Skills.findOneAndDelete(skill);
           }
@@ -96,10 +96,10 @@ const deleteDetails = asyncHandler(async (req, res) => {
         await Experience.findByIdAndDelete(findPerson.experienceId);
       }
     }
-    if (findPerson.roleId) {
+    if (findPerson?.roleId) {
       const findRole = await Role.findById(findPerson.roleId);
       if (findRole) {
-        if (findRole.departmentId) {
+        if (findRole?.departmentId) {
           const remWorkerFromDep = await Department.findOneAndUpdate(
             {
               _id: findRole.departmentId,
@@ -142,7 +142,7 @@ const add2Department = asyncHandler(async (req, res) => {
       throw new Error("Department not found");
     }
 
-    if (findingPerson.roleId) {
+    if (findingPerson?.roleId) {
       res.status(400);
       throw new Error("Role already assigned");
     }
@@ -159,8 +159,10 @@ const add2Department = asyncHandler(async (req, res) => {
     }
     findingPerson.roleId = created._id;
     await findingPerson.save();
-    findingDepartment.workers.push(eid);
-    await findingDepartment.save();
+    if (!findingDepartment.workers.includes(eid)) {
+      findingDepartment.workers.push(eid);
+      await findingDepartment.save();
+    }
 
     res.status(201).json({ findingDepartment, findingPerson });
   } catch (e) {

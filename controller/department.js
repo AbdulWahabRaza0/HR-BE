@@ -71,7 +71,7 @@ const deleteDepartment = asyncHandler(async (req, res) => {
     if (findDepartment.workers.length > 0) {
       for (const worker of findDepartment.workers) {
         const findWorker = await Personal.findById(worker);
-        if (findWorker.roleId) {
+        if (findWorker?.roleId) {
           const remDepFromRole = await Role.findByIdAndUpdate(
             findWorker.roleId,
             {
