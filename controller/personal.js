@@ -23,6 +23,10 @@ const addDetails = asyncHandler(async (req, res) => {
       res.status(400);
       throw new Error("Insufficient Details");
     }
+    const checkPerson = await Personal.findOne({ email: email });
+    if (checkPerson) {
+      return res.status(201).json(checkPerson);
+    }
     const addingDetaiils = await Personal.create({
       name,
       email,
@@ -62,7 +66,6 @@ const updateDetails = asyncHandler(async (req, res) => {
     throw new Error("Invalid Error");
   }
 });
-
 const deleteDetails = asyncHandler(async (req, res) => {
   try {
     const { pid } = req.query;
@@ -185,8 +188,15 @@ const addExperience = asyncHandler(async (req, res) => {
       throw new Error("Worker not added");
     }
     if (findingPersonal.experienceId) {
-      res.status(400);
-      throw new Error("Experience Id already present");
+      // res.status(400);
+      // throw new Error("Experience Id already present");
+      const wholeData = await findingPersonal.populate({
+        path: "experienceId",
+        populate: {
+          path: "prevJobsId trainingId skillsId",
+        },
+      });
+      res.status(201).json(wholeData);
     }
     const newExperience = new Experience();
     for (const skill of skills) {
@@ -221,6 +231,72 @@ const addExperience = asyncHandler(async (req, res) => {
     throw new Error("Invalid Error");
   }
 });
+const editSkills = asyncHandler(async (req, res) => {
+  const { sid } = req.query;
+  const { skill } = req.body;
+  if (!sid || !skill) {
+    res.status(400);
+    throw new Error("insufficient details");
+  }
+  try {
+    const editedSkills = await Skills.findByIdAndUpdate(sid, skill, {
+      new: true,
+    });
+    if (!editedSkills) {
+      res.status(400);
+      throw new Error("Invalid Error");
+    }
+    res.status(201).json(editedSkills);
+  } catch (e) {
+    console.log(e);
+    res.status(400);
+    throw new Error("Invalid Error");
+  }
+});
+const editPrevJobs = asyncHandler(async (req, res) => {
+  const { pjid } = req.query;
+  const { prevJob } = req.body;
+  if (!pjid || !prevJob) {
+    res.status(400);
+    throw new Error("insufficient details");
+  }
+  try {
+    const editedPrevJobs = await PrevJobs.findByIdAndUpdate(pjid, prevJob, {
+      new: true,
+    });
+    if (!editedPrevJobs) {
+      res.status(400);
+      throw new Error("Invalid Error");
+    }
+    res.status(201).json(editedPrevJobs);
+  } catch (e) {
+    console.log(e);
+    res.status(400);
+    throw new Error("Invalid Error");
+  }
+});
+const editTrainings = asyncHandler(async (req, res) => {
+  const { tid } = req.query;
+  const { training } = req.body;
+  if (!tid || !training) {
+    res.status(400);
+    throw new Error("insufficient details");
+  }
+  try {
+    const editedTraining = await Training.findByIdAndUpdate(tid, training, {
+      new: true,
+    });
+    if (!editedTraining) {
+      res.status(400);
+      throw new Error("Invalid Error");
+    }
+    res.status(201).json(editedTraining);
+  } catch (e) {
+    console.log(e);
+    res.status(400);
+    throw new Error("Invalid Error");
+  }
+});
 module.exports = {
   allDetails,
   addDetails,
@@ -228,4 +304,7 @@ module.exports = {
   add2Department,
   deleteDetails,
   addExperience,
+  editSkills,
+  editPrevJobs,
+  editTrainings,
 };
