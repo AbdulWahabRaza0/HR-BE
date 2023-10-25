@@ -5,7 +5,7 @@ We have been building Human Resource management system backend using express as 
 ## Table of Contents
 
 - [Installation](#installation)
-- [How to run?](#howtorun)
+- [How to run?](#howtorun?)
 - [Swagger](#swagger)
 - [Technologies](#technologies)
 - [Tools](#tools)
