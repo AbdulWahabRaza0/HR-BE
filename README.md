@@ -6,7 +6,9 @@ We have been building Human Resource management system backend using express as 
 
 - [Installation](#installation)
 - [Commands](#commands)
-- [Contributing](#contributing)
+- [Swagger](#swagger)
+- [Technologies](#technologies)
+- [Tools](#tools)
 
 ## Installation
 
@@ -30,8 +32,26 @@ npm run dev
 
 ```bash
 # Example command to install dependencies
-npm run dev
+npm run test
 ```
+
+## Swagger
+
+Swagger is live at url `http://localhost:5000/api/docs` where you can test all the end points.
+
+## Technologies
+
+- Express
+- Mongoose
+- Swagger
+- JEST
+
+## Tools
+
+- VS Code
+- Postman
+- MongoDB Compass
+
 
 
 
