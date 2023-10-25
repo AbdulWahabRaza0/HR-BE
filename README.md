@@ -5,7 +5,7 @@ We have been building Human Resource management system backend using express as 
 ## Table of Contents
 
 - [Installation](#installation)
-- [Usage](#usage)
+- [Commands](#commands)
 - [Contributing](#contributing)
 
 ## Installation
@@ -16,3 +16,22 @@ We have been building Human Resource management system backend using express as 
 ```bash
 # Example command to install dependencies
 npm install
+```
+## Commands
+
+- to start the project in developer mode run `npm run dev`
+
+```bash
+# Example command to install dependencies
+npm run dev
+```
+
+- for test end points use `npm run test`
+
+```bash
+# Example command to install dependencies
+npm run dev
+```
+
+
+
