@@ -12,6 +12,7 @@ const allDetails = asyncHandler(async (req, res) => {
     throw new Error("Invalid Error");
   }
 });
+
 const addDetails = asyncHandler(async (req, res) => {
   try {
     const { name, email, contact, description } = req.body;

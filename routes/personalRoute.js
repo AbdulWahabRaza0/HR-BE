@@ -17,8 +17,10 @@ const {
  * /person:
  *   get:
  *     summary: Get all personal details
+ *     tags:
+ *       - Person
  *     security:
- *       - BearerAuth: []  # Requires a bearer token
+ *       - bearerAuth: []  # Requires a bearer token
  *     responses:
  *       200:
  *         description: Successfully retrieved personal details
@@ -50,8 +52,10 @@ router.get("/", protect, allDetails);
  * /person/add:
  *   post:
  *     summary: Add personal details
+ *     tags:
+ *       - Person
  *     security:
- *       - BearerAuth: []  # Requires a bearer token
+ *       - bearerAuth: []  # Requires a bearer token
  *     requestBody:
  *       content:
  *         application/json:
@@ -104,8 +108,10 @@ router.post("/add", protect, protectAdmin, addDetails);
  * /person/update:
  *   put:
  *     summary: Update personal details
+ *     tags:
+ *       - Person
  *     security:
- *       - BearerAuth: []  # Requires a bearer token
+ *       - bearerAuth: []  # Requires a bearer token
  *     parameters:
  *       - in: query
  *         name: pid
@@ -150,11 +156,13 @@ router.post("/add", protect, protectAdmin, addDetails);
 router.put("/update", protect, protectAdmin, updateDetails);
 /**
  * @swagger
- * /person/department/add/{id}:
+ * /person/department/add:
  *   post:
  *     summary: Add a person to a department with a role
+ *     tags:
+ *       - Department
  *     security:
- *       - BearerAuth: []  # Requires a bearer token
+ *       - bearerAuth: []  # Requires a bearer token
  *     parameters:
  *       - in: query
  *         name: eid
@@ -207,7 +215,7 @@ router.put("/department/add", protect, protectAdmin, add2Department);
  *   put:
  *     summary: Add Experience
  *     security:
- *       - BearerAuth: []  # Requires a bearer token
+ *       - bearerAuth: []  # Requires a bearer token
  *     tags:
  *       - Experience
  *     parameters:
@@ -245,9 +253,13 @@ router.put("/department/add", protect, protectAdmin, add2Department);
 router.put("/experience/add", protect, protectAdmin, addExperience);
 /**
  * @swagger
- * /person/experience/edit/skills/{sid}:
+ * /person/experience/edit/skills:
  *   put:
  *     summary: Edit a skill by ID
+ *     tags:
+ *       - Experience
+ *     security:
+ *       - bearerAuth: []  # Requires a bearer token
  *     parameters:
  *       - in: path
  *         name: sid
@@ -271,9 +283,13 @@ router.put("/experience/add", protect, protectAdmin, addExperience);
 router.put("/experience/edit/skills", protect, protectAdmin, editSkills);
 /**
  * @swagger
- * /person/experience/edit/prevJobs/{pjid}:
+ * /person/experience/edit/prevJobs:
  *   put:
  *     summary: Edit a previous job by ID
+ *     tags:
+ *       - Experience
+ *     security:
+ *       - bearerAuth: []  # Requires a bearer token
  *     parameters:
  *       - in: path
  *         name: pjid
@@ -297,9 +313,13 @@ router.put("/experience/edit/skills", protect, protectAdmin, editSkills);
 router.put("/experience/edit/prevjobs", protect, protectAdmin, editPrevJobs);
 /**
  * @swagger
- * /person/experience/edit/trainings/{tid}:
+ * /person/experience/edit/trainings:
  *   put:
  *     summary: Edit a training by ID
+ *     tags:
+ *       - Experience
+ *     security:
+ *       - bearerAuth: []  # Requires a bearer token
  *     parameters:
  *       - in: path
  *         name: tid
@@ -327,8 +347,10 @@ router.put("/experience/edit/trainings", protect, protectAdmin, editTrainings);
  * /person/delete:
  *   delete:
  *     summary: Delete personal details
+ *     tags:
+ *       - Person
  *     security:
- *       - BearerAuth: []  # Requires a bearer token
+ *       - bearerAuth: []  # Requires a bearer token
  *     parameters:
  *       - in: query
  *         name: pid
@@ -359,6 +381,6 @@ router.put("/experience/edit/trainings", protect, protectAdmin, editTrainings);
  *       400:
  *         description: Failed to delete personal details
  */
-router.put("/delete", protect, protectAdmin, deleteDetails);
+router.delete("/delete", protect, protectAdmin, deleteDetails);
 
 module.exports = router;
