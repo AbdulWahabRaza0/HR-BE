@@ -12,8 +12,8 @@ We have been building Human Resource management system backend using express as 
 
 ## Installation
 
-- To install this system. You just need to clone the repository in you local pc by clickig on above given green button with the name of Code. After clicking here, you can see three options, first to clone using cli, second to edit code online using VS Code and third is by downloading zip file.
-- After cloning code, open it on VS Code or any other editor and type `npm install` in the root directory of the project to install all required dependencies.
+- To install this system, you just need to clone the repository on your local PC by clicking on the green 'Code' button above. After clicking, you will see three options: the first for cloning using the CLI, the second for editing the code online using VS Code, and the third for downloading a zip file.
+- Once you've cloned the code, open it in VS Code or any other editor, and in the root directory of the project, type `npm install` to install all the required dependencies.
 
 ```bash
 # Example command to install dependencies
