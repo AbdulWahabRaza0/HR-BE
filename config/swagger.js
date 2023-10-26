@@ -1,8 +1,7 @@
+const express = require("express");
 const swaggerUi = require("swagger-ui-express");
 const swaggerJsdoc = require("swagger-jsdoc");
 const path = require("path");
-const token =
-  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1MmU2YWIwNGIzZWE0MWNkZDk1NDEzMyIsImlhdCI6MTY5ODA1NzEwOCwiZXhwIjoxNzAwNjQ5MTA4fQ.RZVclWDyyY3jWFeP5mI2_F8aT8QDZiFq1k3Ryk1Sch8";
 const swaggerDefinition = {
   openapi: "3.0.0",
   info: {
@@ -51,11 +50,16 @@ const swaggerOptions = {
     path.join(__dirname, "../models/*.js"),
   ],
 };
-
+const swaggerUiAssetPath = require("swagger-ui-dist").getAbsoluteFSPath();
 const swaggerSpecs = swaggerJsdoc(swaggerOptions);
 
 const swaggerDocs = (app, port) => {
   app.use("/api/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpecs));
+  // app.use("/api/swagger", express.static(swaggerUiAssetPath));
+  app.use(
+    "/api/swagger",
+    express.static(path.join(__dirname, "../swagger-ui-dist"))
+  );
   app.get("/api/docs.json", (req, res) => {
     res.setHeader("Content-Type", "application/json");
     res.send(swaggerSpecs);

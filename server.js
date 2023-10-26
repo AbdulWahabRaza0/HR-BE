@@ -7,9 +7,21 @@ const PersonalRoutes = require("./routes/personalRoute");
 const departmentRoutes = require("./routes/departmentRoute");
 const { notFound, errorHandler } = require("./middleware/error");
 const { swaggerDocs } = require("./config/swagger");
+const helmet = require("helmet");
+const cors = require("cors");
+
 app.use(express.json());
+app.use(cors());
 
 connectDB();
+const cspDefaults = helmet.contentSecurityPolicy.getDefaultDirectives();
+delete cspDefaults["upgrade-insecure-requests"];
+
+app.use(
+  helmet({
+    contentSecurityPolicy: { directives: cspDefaults },
+  })
+);
 app.get("/", (req, res) => {
   res.status(200).json("HRS Server");
 });
