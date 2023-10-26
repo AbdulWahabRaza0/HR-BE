@@ -4,7 +4,7 @@ const request = require("supertest");
 const departmentRoute = require("../routes/departmentRoute");
 const userRoutes = require("../routes/userRoutes");
 
-const { connectDB } = require("../config/db");
+const { connectDB, disconnectDB } = require("../config/db");
 const { beforeEach } = require("node:test");
 const app = express();
 app.use(express.json());
@@ -26,12 +26,14 @@ describe("Good Department Routes", function () {
     contact: "031111111",
     description: "this is marketing department.",
   };
-
+  beforeAll((done) => {
+    done();
+  });
   test("get token", async () => {
     const loginUser = await request(app)
       .post("/login")
       .send({ email: AdminData.email, password: AdminData.password });
-    expect(loginUser.statusCode).toBe(201);
+    await expect(loginUser.statusCode).toBe(201);
     token = await loginUser.body.token;
   });
 
@@ -40,13 +42,17 @@ describe("Good Department Routes", function () {
       .post("/department/add")
       .send(departmentData)
       .set("Authorization", `Bearer ${token}`);
-    expect(resWithToken.statusCode).toBe(201);
+    await expect(resWithToken.statusCode).toBe(201);
   });
 
   test("get all dept by admin", async () => {
     const resWithToken = await request(app)
       .get("/department")
       .set("Authorization", `Bearer ${token}`);
-    expect(resWithToken.statusCode).toBe(200);
+    await expect(resWithToken.statusCode).toBe(200);
+  });
+  afterAll((done) => {
+    disconnectDB();
+    done();
   });
 });
