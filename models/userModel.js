@@ -17,7 +17,6 @@ const Schema = new mongoose.Schema({
   },
   type: {
     type: Number,
-    required: true,
     default: 0,
     enum: [0, 1],
   },

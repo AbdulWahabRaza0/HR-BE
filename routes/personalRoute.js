@@ -11,6 +11,7 @@ const {
   editSkills,
   editPrevJobs,
   editTrainings,
+  changeStatus,
 } = require("../controller/personal");
 /**
  * @swagger
@@ -154,6 +155,37 @@ router.post("/add", protect, protectAdmin, addDetails);
  *         description: Failed to update personal details
  */
 router.put("/update", protect, protectAdmin, updateDetails);
+/**
+ * @swagger
+ * /api/personal/{id}/change-status:
+ *   put:
+ *     summary: Edit a personal record's status by ID
+ *     tags:
+ *       - Personal
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: string
+ *         description: The ID of the personal record to edit.
+ *       - in: body
+ *         name: status
+ *         required: true
+ *         description: The status to set for the personal record.
+ *         schema:
+ *           type: object
+ *           properties:
+ *             status:
+ *               type: number
+ *     responses:
+ *       201:
+ *         description: Personal record status edited successfully
+ *       400:
+ *         description: Invalid request or error during editing
+ */
+router.put("/status/change", protect, protectAdmin, changeStatus);
+
 /**
  * @swagger
  * /person/department/add:

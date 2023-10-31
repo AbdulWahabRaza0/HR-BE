@@ -35,6 +35,12 @@ const PersonalSchema = new mongoose.Schema({
     type: ObjectId,
     ref: "Experience",
   },
+  status: {
+    //0:on site, 1: remote, 2: left the job
+    type: Number,
+    default: 0,
+    enum: [0, 1, 2],
+  },
 });
 const Personal = mongoose.model("Personal", PersonalSchema);
 module.exports = Personal;

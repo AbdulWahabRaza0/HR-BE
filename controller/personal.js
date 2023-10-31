@@ -16,6 +16,32 @@ const allDetails = asyncHandler(async (req, res) => {
     throw new Error("Invalid Error");
   }
 });
+const changeStatus = asyncHandler(async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { status } = req.body;
+    if (!id && !isNumber(status)) {
+      res.status(400);
+      throw new Error("Insufficient Details");
+    }
+    const changeMyStatus = await Personal.findOneAndUpdate(
+      {
+        _id: id,
+      },
+      {
+        status,
+      },
+      {
+        new: true,
+      }
+    );
+    res.status(201).json(changeMyStatus);
+  } catch (e) {
+    console.log(e);
+    res.status(400);
+    throw new Error("Invalid Error");
+  }
+});
 const addDetails = asyncHandler(async (req, res) => {
   try {
     const { name, email, address, contact, dob } = req.body;
@@ -309,4 +335,5 @@ module.exports = {
   editSkills,
   editPrevJobs,
   editTrainings,
+  changeStatus,
 };
